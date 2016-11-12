@@ -21,7 +21,7 @@ public class ComputationalModel {
      * Allow the program to initialize the memory with 0 as a default value of
      * each cell
      */
-    static public void init() {
+    public void init() {
         /* for (int j = 0; j < 30000; j++) {
          memory[j] = new uByte();
          }*/
@@ -73,18 +73,18 @@ public class ComputationalModel {
         this.p = p;
     }
 
-    static public int getI() {
+    public int getI() {
         return i;
     }
 
-    static public void setI(int d) {
+    public void setI(int d) {
         i = d;
     }
 
     /**
      * Display the memory in row
      */
-    public static void affichememoire() {
+    public void affichememoire() {
         /*for (int j = 0; j < 30000; j++) {
          System.out.print(" | " + memory[j].byteToInt());
          }*/

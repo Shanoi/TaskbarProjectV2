@@ -18,7 +18,7 @@ public class In implements Command {
     private int temp = 0;
     private int text_length = 0;
     private static int state = 0;
-    private static ArrayList<Integer> text_list = new ArrayList<Integer>();
+    private static ArrayList<Integer> text_list = new ArrayList<>();
 
     public void In(String file) {
         this.file = file;
