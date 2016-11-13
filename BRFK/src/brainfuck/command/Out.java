@@ -1,7 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.memory.ComputationalModel;
-import brainfuck.Text;
+import brainfuck.memory.Interpreter;
 
 import java.io.*;
 
@@ -16,7 +16,7 @@ public class Out implements Command {
             System.out.println((char) cm.getCurrentCaseValue());
         }
         else{
-            file= Text.getFileOut();
+            file= Interpreter.getFileOut();
             try {
                 FileWriter inputFile = new FileWriter(new File(file));
                 FileReader tampon=new FileReader(new File(file));

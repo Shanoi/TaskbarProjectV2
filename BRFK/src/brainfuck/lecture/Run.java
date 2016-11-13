@@ -25,6 +25,7 @@ public class Run {
     }
 
     public void load() throws IOException, FileNotFoundException {
+
         BufferedReader file = new BufferedReader(new FileReader(path));
         String line = new String();
 
@@ -45,34 +46,54 @@ public class Run {
     }
 
     public List<String> getInstructions() {
-        return this.list;
+        return Run.list;
+    }
+
+    public ComputationalModel getCm() {
+        return cm;
     }
 
     public int jumpAssoc(int i) {
-        Stack<String> stack = new Stack<String>();
+
+        Stack<String> stack = new Stack<>();
         int o = cm.getI();
+
         stack.push(list.get(o));
+
         while (!stack.isEmpty()) {
+
             o++;
+
             if (list.get(o).equals("[")) {
+
                 stack.push("[");
+
             }
+
             if (list.get(o).equals("]")) {
+
                 stack.pop();
+
             }
         }
         return o;
     }
 
     public int backAssoc(int i) {
+
         Stack<String> stack = new Stack<String>();
         int o = cm.getI();
+
         stack.push(list.get(o));
+
         while (!stack.isEmpty()) {
+
             o--;
+
             if (list.get(o).equals("[")) {
                 stack.pop();
             }
+
             if (list.get(o).equals("]")) {
                 stack.push("]");
             }
@@ -81,14 +102,21 @@ public class Run {
     }
 
     public void execute() throws IOException, FileNotFoundException {
+
         cm.init();
 
         while (cm.getI() < list.size()) {
+
             if (Syntaxe.isShort(list.get(cm.getI()))) {
+
                 shortSyntaxe.run(list.get(cm.getI()));
+
             } else {
+
                 longSyntaxe.run(list.get(cm.getI()));
+
             }
+
             i = (cm.getI() + 1);
             cm.setI(i);
         }

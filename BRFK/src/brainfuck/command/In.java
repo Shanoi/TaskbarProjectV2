@@ -1,7 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.memory.ComputationalModel;
-import brainfuck.Text;
+import brainfuck.memory.Interpreter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +26,7 @@ public class In implements Command {
 
     @Override
     public void execute() {
-        file = Text.getFileIn();
+        file = Interpreter.getFileIn();
         if (file.equals("")) {
             ComputationalModel cm = new ComputationalModel();
             Scanner sc = new Scanner(System.in);

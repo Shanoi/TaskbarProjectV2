@@ -10,9 +10,13 @@ public class Jump implements Command {
 
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
-        if (cm.getCurrentCaseValue() == 0) {
-            cm.setI(Run.jumpAssoc(cm.getI()));
+
+        Run run = new Run("");
+
+        if (run.getCm().getCurrentCaseValue() == 0) {
+
+            run.getCm().setI(run.jumpAssoc(run.getCm().getI()));
+
         }
 
     }

@@ -8,23 +8,20 @@ import brainfuck.lecture.Run;
  * @author TeamTaskbar
  */
 public class Back implements Command {
-    int i=0;
+
+    int i = 0;
 
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
-        if(cm.getCurrentCaseValue() > 0) {
-            setI(Run.backAssoc(cm.getI()));
+        
+        Run run = new Run("");
+        
+        if (run.getCm().getCurrentCaseValue() > 0) {
+            
+            run.getCm().setI(run.backAssoc(run.getCm().getI()));
+            
         }
-
 
     }
 
-
 }
-
-
-
-
-
-
