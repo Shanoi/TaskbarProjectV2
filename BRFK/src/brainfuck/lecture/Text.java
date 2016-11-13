@@ -65,7 +65,7 @@ public class Text extends Run {
 
     }
 
-    private void Rewrite() {
+    public void Rewrite() {
 
         for (int j = 0; j < list.size(); j++) {
 

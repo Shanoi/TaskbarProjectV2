@@ -26,7 +26,7 @@ public class Run {
     private final ComputationalModel cm;
 
     protected final List<EnumCommands> list = new ArrayList<>();
-    private static int i = 0;
+    private int i = 0;
 
     public Run(String path) {
         
@@ -66,7 +66,7 @@ public class Run {
     }
 
     public List<EnumCommands> getInstructions() {
-        return Run.list;
+        return list;
     }
 
     public ComputationalModel getCm() {
