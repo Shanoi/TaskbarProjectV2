@@ -12,7 +12,6 @@ public class Wellformed {
 
     private Stack<String> stack = new Stack<>();
 
-    //private final String path;
     private ArrayList<EnumCommands> commands;
 
     public Wellformed(ArrayList<EnumCommands> commands) {
@@ -23,19 +22,20 @@ public class Wellformed {
 
     public void execute() throws IOException, FileNotFoundException {
 
-        commands.stream().map((get) -> {
+        for (int i = 0; i < commands.size(); i++) {
+            EnumCommands get = commands.get(i);
+
             if (get == JUMP) {
                 pushStack("[");
             }
-            return get;
-        }).map((get) -> {
             if (get == BACK && IsemptyStack()) {
                 System.exit(4);
             }
-            return get;
-        }).filter((get) -> (get == BACK && !IsemptyStack())).forEach((_item) -> {
-            popStack();
-        });
+            if (get == BACK && !IsemptyStack()) {
+                popStack();
+            }
+
+        }
 
     }
 
