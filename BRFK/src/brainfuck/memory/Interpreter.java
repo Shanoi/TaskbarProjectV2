@@ -1,17 +1,13 @@
 package brainfuck.memory;
 
-import java.util.Arrays;
-import brainfuck.lecture.*;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Interpreter {
 
-    private ComputationalModel cm = new ComputationalModel();
+    //private ComputationalModel cm = new ComputationalModel();
     private String path = new String();
-    private List<String> args;
+    //private List<String> args;
 
     private static String filein = "";
     private static String fileout = "";
@@ -22,13 +18,19 @@ public class Interpreter {
      * @param path
      * @param args
      */
-    public Text(String path, String[] args) {
+    public Interpreter(String path, String[] args) {
 
         this.path = path;
-	this.args = new ArrayList(Arrays.asList(args));
+	//this.args = new ArrayList(Arrays.asList(args));
 
         for (int i = 0; i < args.length; i++) {
 
+            if (args[i].equals("--check")) {
+                
+                new Wellformed(path);
+                
+            }
+            
             if (args[i].equals("-o")) {
 
                 fileout = args[i + 1];
