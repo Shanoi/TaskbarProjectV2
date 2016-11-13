@@ -1,6 +1,5 @@
 package brainfuck.command;
 
-import brainfuck.memory.ComputationalModel;
 import brainfuck.lecture.Run;
 
 /**

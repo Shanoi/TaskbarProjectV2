@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import brainfuck.Syntaxe;
+import brainfuck.command.EnumCommands;
+import static brainfuck.command.EnumCommands.BACK;
+import static brainfuck.command.EnumCommands.JUMP;
+import static brainfuck.command.EnumCommands.isCommand;
+import static brainfuck.command.EnumCommands.toCommand;
 import brainfuck.memory.ComputationalModel;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +20,7 @@ public class Run {
 
     private ComputationalModel cm;
 
-    private static List<String> list = new ArrayList<String>();
+    private static List<EnumCommands> list = new ArrayList<>();
     private static int i = 0;
 
     public Run(String path) {
@@ -30,14 +34,38 @@ public class Run {
         String line = new String();
 
         while ((line = file.readLine()) != null) {
-            if (Syntaxe.isShort(line)) {
+
+            if ((line.charAt(0) >= 'A') && (line.charAt(0) <= 'Z')) {
+
                 for (int j = 0; j < line.length(); j++) {
-                    list.add(Character.toString(line.charAt(j)));
+
+                    if (isCommand(line)) {
+
+                        list.add(toCommand((Character.toString(line.charAt(j)))));
+
+                    } else {
+
+                        System.exit(4);
+
+                    }
+
                 }
+
             } else {
-                list.add(line);
+
+                if (isCommand(line)) {
+
+                    list.add(toCommand(line));
+
+                } else {
+
+                    System.exit(4);
+
+                }
+
             }
         }
+
         file.close();
     }
 
@@ -45,7 +73,7 @@ public class Run {
         return list.size();
     }
 
-    public List<String> getInstructions() {
+    public List<EnumCommands> getInstructions() {
         return Run.list;
     }
 
@@ -55,7 +83,7 @@ public class Run {
 
     public int jumpAssoc(int i) {
 
-        Stack<String> stack = new Stack<>();
+        Stack<EnumCommands> stack = new Stack<>();
         int o = cm.getI();
 
         stack.push(list.get(o));
@@ -64,13 +92,13 @@ public class Run {
 
             o++;
 
-            if (list.get(o).equals("[")) {
+            if (list.get(o) == JUMP) {
 
-                stack.push("[");
+                stack.push(list.get(o));
 
             }
 
-            if (list.get(o).equals("]")) {
+            if (list.get(o) == BACK) {
 
                 stack.pop();
 
@@ -81,7 +109,7 @@ public class Run {
 
     public int backAssoc(int i) {
 
-        Stack<String> stack = new Stack<String>();
+        Stack<EnumCommands> stack = new Stack<>();
         int o = cm.getI();
 
         stack.push(list.get(o));
@@ -90,12 +118,15 @@ public class Run {
 
             o--;
 
-            if (list.get(o).equals("[")) {
+            if (list.get(o) == JUMP) {
+
                 stack.pop();
             }
 
-            if (list.get(o).equals("]")) {
-                stack.push("]");
+            if (list.get(o) == BACK) {
+
+                stack.push(list.get(o));
+
             }
         }
         return o;
@@ -107,15 +138,7 @@ public class Run {
 
         while (cm.getI() < list.size()) {
 
-            if (Syntaxe.isShort(list.get(cm.getI()))) {
-
-                shortSyntaxe.run(list.get(cm.getI()));
-
-            } else {
-
-                longSyntaxe.run(list.get(cm.getI()));
-
-            }
+            list.get(i).getCommand().execute();
 
             i = (cm.getI() + 1);
             cm.setI(i);

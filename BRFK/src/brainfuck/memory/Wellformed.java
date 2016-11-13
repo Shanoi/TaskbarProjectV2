@@ -1,134 +1,54 @@
 package brainfuck.memory;
 
+import brainfuck.command.EnumCommands;
+import static brainfuck.command.EnumCommands.BACK;
+import static brainfuck.command.EnumCommands.JUMP;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import static brainfuck.command.EnumCommands.toCommand;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Stack;
-import javax.imageio.ImageIO;
 
 public class Wellformed {
 
-    private Stack<String> stack = new Stack<String>();
+    private Stack<String> stack = new Stack<>();
 
-    private final String path;
-    
-    public Wellformed(String path) {
-        this.path = path;
+    //private final String path;
+    private ArrayList<EnumCommands> commands;
+
+    public Wellformed(ArrayList<EnumCommands> commands) {
+
+        this.commands = commands;
+
     }
 
     public void execute() throws IOException, FileNotFoundException {
 
-        if (path.lastIndexOf(".") > 0) {
-
-            // On récupère l'extension du fichier
-            String ext = path.substring(path.lastIndexOf("."));
-
-            // Si le fichier n'est pas en .txt on le met en .txt
-            if (!".bmp".equals(ext)) {
-
-                wellFormedBMP();
-
-            } else {
-
-                wellFormedBF();
-
+        commands.stream().map((get) -> {
+            if (get == JUMP) {
+                pushStack("[");
             }
-
-        } else {
-
-            wellFormedBF();
-
-        }
+            return get;
+        }).map((get) -> {
+            if (get == BACK && IsemptyStack()) {
+                System.exit(4);
+            }
+            return get;
+        }).filter((get) -> (get == BACK && !IsemptyStack())).forEach((_item) -> {
+            popStack();
+        });
 
     }
 
-    //Faire une interface... ou un truc qui marche mieux xD
-    
-    public void popStack() {
+    private void popStack() {
         stack.pop();
     }
 
-    public void pushStack(String line) {
+    private void pushStack(String line) {
         stack.push(line);
     }
 
-    public boolean emptyStack() {
+    private boolean IsemptyStack() {
         return stack.empty();
-    }
-
-    public void load() {
-
-    }
-
-    private void wellFormedBF() throws FileNotFoundException, IOException {
-
-        BufferedReader file = new BufferedReader(new FileReader(path));
-        String line = new String();
-
-        while ((line = file.readLine()) != null) {
-
-            if (Syntaxe.isShort(line)) {
-
-                shortSyntaxe.verify(line);
-
-            } else {
-
-                longSyntaxe.verify(line);
-
-            }
-        }
-
-        file.close();
-    }
-
-    private void wellFormedBMP() {
-
-        BufferedImage img = null;
-
-        try {
-
-            img = ImageIO.read(new File(path));
-
-            if (img.getHeight() % 3 == 0 && img.getWidth() % 3 == 0) {
-
-                for (int o = 0; o < img.getHeight(); o += 3) {
-
-                    for (int j = 0; j < img.getWidth(); j += 3) {
-
-                        Color pixelcolorBase = new Color(img.getRGB(j, o));
-
-                        for (int k = o, cpt1 = 0; cpt1 < 3; k++, cpt1++) {
-
-                            for (int l = j, cpt2 = 0; cpt2 < 3; l++, cpt2++) {
-
-                                Color pixelcolor = new Color(img.getRGB(l, k));
-
-                                if (!pixelcolor.equals(pixelcolorBase)) {
-
-                                    System.exit(9);
-
-                                }
-
-                            }
-
-                        }
-
-                        longSyntaxe.verify(toCommand(Integer.toString(pixelcolorBase.getRGB())).getLong());
-
-                    }
-
-                }
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR" + e);
-        }
-
     }
 
 }

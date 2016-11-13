@@ -1,7 +1,10 @@
 package brainfuck.memory;
 
+import brainfuck.command.EnumCommands;
+import brainfuck.lecture.Run;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Interpreter {
 
@@ -17,20 +20,25 @@ public class Interpreter {
      *
      * @param path
      * @param args
+     * @throws java.io.IOException
      */
-    public Interpreter(String path, String[] args) {
+    public Interpreter(String path, String[] args) throws IOException {
 
         this.path = path;
-	//this.args = new ArrayList(Arrays.asList(args));
+        //this.args = new ArrayList(Arrays.asList(args));
 
+        Run run = new Run(path);
+        
+        run.load();
+        
         for (int i = 0; i < args.length; i++) {
 
             if (args[i].equals("--check")) {
-                
-                new Wellformed(path);
-                
+
+                new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
+
             }
-            
+
             if (args[i].equals("-o")) {
 
                 fileout = args[i + 1];
@@ -63,11 +71,10 @@ public class Interpreter {
      * @throws java.io.IOException
      * @throws java.io.FileNotFoundException
      */
-    public void launchInterpreter() throws IOException, FileNotFoundException {
+    /* public void launchInterpreter() throws IOException, FileNotFoundException {
 
-        Lecture test2 = new Wellformed(path);
-        test2.execute();
+     Lecture test2 = new Wellformed(path);
+     test2.execute();
 
-    }
-
+     }*/
 }
