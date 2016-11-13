@@ -12,6 +12,7 @@ import static brainfuck.command.EnumCommands.toCommand;
 import brainfuck.memory.ComputationalModel;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,16 +21,18 @@ import javax.imageio.ImageIO;
 
 public class Run {
 
-    private final String path;
+    protected final String path;
 
-    private ComputationalModel cm;
+    private final ComputationalModel cm;
 
-    private static List<EnumCommands> list = new ArrayList<>();
+    protected final List<EnumCommands> list = new ArrayList<>();
     private static int i = 0;
 
     public Run(String path) {
+        
         cm = new ComputationalModel();
         this.path = path;
+        
     }
 
     public void load() throws IOException, FileNotFoundException {
@@ -43,7 +46,7 @@ public class Run {
             if (".bmp".equals(ext)) {
 
                 new Image().ReadImage();
-                
+
             } else {
 
                 new Text().ReadText();
@@ -135,7 +138,17 @@ public class Run {
 
     }
 
+    public void EncodImage() throws IOException{
+        
+        Image img = new Image();
+        
+        img.saveImg(img.createImg(getNbI()), path);
+        
+    }
+    
     private class Image {
+
+        private int pixelSize = 3;
 
         private void ReadImage() throws IOException {
 
@@ -167,12 +180,60 @@ public class Run {
 
                         }
 
-                        list.add(toCommand(Integer.toString(pixelcolorBase.getRGB())));
+                        if (isCommand(Integer.toString(pixelcolorBase.getRGB())) && pixelcolorBase != Color.BLACK) {
+
+                            list.add(toCommand(Integer.toString(pixelcolorBase.getRGB())));
+
+                        } else {
+
+                            System.exit(4);
+
+                        }
 
                     }
 
                 }
             }
+
+        }
+
+        private BufferedImage createImg(int dim) {
+
+            final BufferedImage res = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
+
+            for (int i = 0; i < dim; i += 3) {
+
+                for (int j = 0; j < dim; j += 3) {
+
+                    for (int k = i, cpt1 = 0; cpt1 < pixelSize; k++, cpt1++) {
+
+                        for (int l = j, cpt2 = 0; cpt2 < pixelSize; l++, cpt2++) {
+
+                            if (i + j > getNbI()) {
+
+                                res.setRGB(k, l, Color.decode(getInstructions().get(i + j).getColor()).getRGB());
+
+                            } else {
+
+                                res.setRGB(k, l, Color.decode("#000000").getRGB());
+
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+
+            return res;
+
+        }
+
+        private void saveImg(final BufferedImage img, String path) throws IOException {
+
+            RenderedImage rendImg = img;
+            ImageIO.write(rendImg, "bmp", new File(path));
 
         }
 
@@ -222,6 +283,18 @@ public class Run {
 
         }
 
+    }
+    
+    private void Rewrite(){
+        
+        for (int j = 0; j < list.size(); j++) {
+            
+            EnumCommands get = list.get(j);
+            
+            System.out.println(get.getShort());
+            
+        }
+        
     }
 
 }

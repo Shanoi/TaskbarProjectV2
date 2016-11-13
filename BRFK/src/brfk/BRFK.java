@@ -5,6 +5,8 @@
  */
 package brfk;
 
+import com.sun.prism.paint.Color;
+
 /**
  *
  * @author Olivier
@@ -16,6 +18,8 @@ public class BRFK {
      */
     public static void main(String[] args) {
 
+        System.out.println("COLOR" + Color.BLACK);
+        
     }
 
 }
