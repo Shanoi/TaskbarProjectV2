@@ -1,12 +1,5 @@
 package brainfuck.lecture;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import brainfuck.command.EnumCommands;
-import static brainfuck.command.EnumCommands.isCommand;
-import static brainfuck.command.EnumCommands.toCommand;
 import brainfuck.memory.ComputationalModel;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +9,8 @@ public class Run {
     protected final String path;
 
     private final ComputationalModel cm;
+
+    private Fichiers fichier;
 
     //protected static final List<EnumCommands> list = new ArrayList<>();
     private int i = 0;
@@ -42,11 +37,11 @@ public class Run {
             if (".bmp".equals(ext)) {
 
                 Image img = new Image(path);
-                
+
             } else {
 
-                Text txt = new Text(path);
-                txt.Read();
+                fichier = new Text(path);
+                fichier.Read();
 
             }
 

@@ -23,6 +23,7 @@ public class Text extends Fichiers {
         super(path);
     }
 
+    @Override
     public void Read() throws FileNotFoundException, IOException {
 
         BufferedReader file = new BufferedReader(new FileReader(path));
@@ -30,23 +31,23 @@ public class Text extends Fichiers {
 
         while ((line = file.readLine()) != null) {
 
-            if ((line.charAt(0) >= 'A') && (line.charAt(0) <= 'Z')) {
+            if ((line.charAt(0) <= 'A') || (line.charAt(0) >= 'Z')) {
 
-                for (int j = 0; j < line.length(); j++) {
+                    for (int j = 0; j < line.length(); j++) {
 
-                    if (isCommand(line)) {
+                        if (isCommand(Character.toString(line.charAt(j)))) {
 
-                        list.add(toCommand((Character.toString(line.charAt(j)))));
+                            list.add(toCommand((Character.toString(line.charAt(j)))));
 
-                    } else {
+                        } else {
 
-                        System.exit(4);
+                            System.exit(4);
+
+                        }
 
                     }
 
-                }
-
-            } else {
+                } else {
 
                 if (isCommand(line)) {
 
@@ -65,6 +66,7 @@ public class Text extends Fichiers {
 
     }
 
+    @Override
     public void Encod() {
 
         for (int j = 0; j < list.size(); j++) {

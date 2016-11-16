@@ -9,6 +9,8 @@ import brainfuck.command.EnumCommands;
 import static brainfuck.command.EnumCommands.BACK;
 import static brainfuck.command.EnumCommands.JUMP;
 import brainfuck.memory.ComputationalModel;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -25,14 +27,21 @@ public class Fichiers {
     protected ComputationalModel cm;
 
     protected String path;
-    
+
     public Fichiers(String path) {
 
         cm = new ComputationalModel();
         this.path = path;
 
     }
-    
+
+    public void Read() throws FileNotFoundException, IOException {
+    }
+
+    public void Encod() {
+
+    }
+
     public int getNbI() {
         return list.size();
     }

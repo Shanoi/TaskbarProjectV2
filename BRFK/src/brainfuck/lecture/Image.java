@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
  */
 public class Image extends Fichiers {
 
-    private int pixelSize = 3;
+    private final int pixelSize = 3;
 
     public Image(String path) {
         super(path);
@@ -68,6 +68,7 @@ public class Image extends Fichiers {
 
     }
 
+    @Override
     public void Read() {
 
         try {
@@ -119,6 +120,7 @@ public class Image extends Fichiers {
 
     }
 
+    @Override
     public void Encod() {
 
         try {
