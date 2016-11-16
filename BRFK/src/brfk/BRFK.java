@@ -5,7 +5,14 @@
  */
 package brfk;
 
+import brainfuck.command.EnumCommands;
+import brainfuck.lecture.Run;
+import brainfuck.memory.Wellformed;
 import com.sun.prism.paint.Color;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +25,36 @@ public class BRFK {
      */
     public static void main(String[] args) {
 
-        System.out.println("COLOR" + Color.BLACK);
+        Run run = new Run("D:/Users/Olivier/Documents/NetBeansProjects/Brainfuck.v2/src/brainfuck/v2/instr.txt");
+        
+        try {
+            run.load();
+        } catch (IOException ex) {
+            Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("NB : "+ run.getNbI());
+        /*try {
+            run.execute();
+        } catch (IOException ex) {
+            Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        run.getCm().affichememoire();*/
+        
+        Wellformed WF = new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
+        
+        try {
+            WF.execute();
+        } catch (IOException ex) {
+            Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("NB : "+ run.getNbI());
+        try {
+            run.execute();
+        } catch (IOException ex) {
+            Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        run.getCm().affichememoire();
         
     }
 

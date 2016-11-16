@@ -29,11 +29,18 @@ public class Wellformed {
                 pushStack("[");
             }
             if (get == BACK && IsemptyStack()) {
+
                 System.exit(4);
             }
             if (get == BACK && !IsemptyStack()) {
                 popStack();
             }
+
+        }
+
+        if (!IsemptyStack()) {
+
+            System.exit(4);
 
         }
 

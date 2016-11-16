@@ -14,7 +14,7 @@ public class Back implements Command {
     public void execute() {
         
         Run run = new Run("");
-        
+       
         if (run.getCm().getCurrentCaseValue() > 0) {
             
             run.getCm().setI(run.backAssoc(run.getCm().getI()));

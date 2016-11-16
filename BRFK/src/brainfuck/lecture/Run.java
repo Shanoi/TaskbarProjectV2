@@ -25,14 +25,14 @@ public class Run {
 
     private final ComputationalModel cm;
 
-    protected final List<EnumCommands> list = new ArrayList<>();
+    protected static final List<EnumCommands> list = new ArrayList<>();
     private int i = 0;
 
     public Run(String path) {
-        
+
         cm = new ComputationalModel();
         this.path = path;
-        
+
     }
 
     public void load() throws IOException, FileNotFoundException {
@@ -138,14 +138,14 @@ public class Run {
 
     }
 
-    public void EncodImage() throws IOException{
-        
+    public void EncodImage() throws IOException {
+
         Image img = new Image();
-        
+
         img.saveImg(img.createImg(getNbI()), path);
-        
+
     }
-    
+
     private class Image {
 
         private int pixelSize = 3;
@@ -180,9 +180,11 @@ public class Run {
 
                         }
 
-                        if (isCommand(Integer.toString(pixelcolorBase.getRGB())) && pixelcolorBase != Color.BLACK) {
+                        String col = "#" + Integer.toHexString(pixelcolorBase.getRGB()).substring(2);
 
-                            list.add(toCommand(Integer.toString(pixelcolorBase.getRGB())));
+                        if (isCommand(col) && pixelcolorBase != Color.BLACK) {
+
+                            list.add(toCommand(col));
 
                         } else {
 
@@ -248,11 +250,11 @@ public class Run {
 
             while ((line = file.readLine()) != null) {
 
-                if ((line.charAt(0) >= 'A') && (line.charAt(0) <= 'Z')) {
+                if ((line.charAt(0) <= 'A') || (line.charAt(0) >= 'Z')) {
 
                     for (int j = 0; j < line.length(); j++) {
 
-                        if (isCommand(line)) {
+                        if (isCommand(Character.toString(line.charAt(j)))) {
 
                             list.add(toCommand((Character.toString(line.charAt(j)))));
 
@@ -284,17 +286,17 @@ public class Run {
         }
 
     }
-    
-    private void Rewrite(){
-        
+
+    private void Rewrite() {
+
         for (int j = 0; j < list.size(); j++) {
-            
+
             EnumCommands get = list.get(j);
-            
+
             System.out.println(get.getShort());
-            
+
         }
-        
+
     }
 
 }

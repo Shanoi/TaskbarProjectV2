@@ -89,8 +89,6 @@ public class ComputationalModel {
          System.out.print(" | " + memory[j].byteToInt());
          }*/
 
-        System.out.println("SIZE " + _memory.size());
-
         _memory.stream().forEach((_memory1) -> {
             System.out.print(" | " + _memory1.byteToInt());
         });

@@ -47,7 +47,7 @@ public class Interpreter {
 
             if (args[i].equals("--check")) {
 
-                new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
+               // new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
 
             }
 
