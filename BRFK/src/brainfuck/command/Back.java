@@ -1,6 +1,6 @@
 package brainfuck.command;
 
-import brainfuck.lecture.Run;
+import brainfuck.lecture.Fichiers;
 
 /**
  *
@@ -13,11 +13,11 @@ public class Back implements Command {
     @Override
     public void execute() {
         
-        Run run = new Run("");
-       
-        if (run.getCm().getCurrentCaseValue() > 0) {
+        Fichiers temp = new Fichiers("");
+        
+        if (temp.getCm().getCurrentCaseValue() > 0) {
             
-            run.getCm().setI(run.backAssoc(run.getCm().getI()));
+            temp.getCm().setI(temp.backAssoc(temp.getCm().getI()));
             
         }
 

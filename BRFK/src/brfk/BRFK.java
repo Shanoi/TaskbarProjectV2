@@ -33,7 +33,7 @@ public class BRFK {
             Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println("NB : "+ run.getNbI());
+        //System.out.println("NB : "+ run.getNbI());
         /*try {
             run.execute();
         } catch (IOException ex) {
@@ -41,14 +41,14 @@ public class BRFK {
         }
         run.getCm().affichememoire();*/
         
-        Wellformed WF = new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
+       // Wellformed WF = new Wellformed((ArrayList<EnumCommands>) run.getInstructions());
         
-        try {
+       /* try {
             WF.execute();
         } catch (IOException ex) {
             Logger.getLogger(BRFK.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("NB : "+ run.getNbI());
+        System.out.println("NB : "+ run.getNbI());*/
         try {
             run.execute();
         } catch (IOException ex) {

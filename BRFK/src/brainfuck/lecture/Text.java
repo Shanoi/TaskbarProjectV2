@@ -17,13 +17,13 @@ import java.io.IOException;
  *
  * @author Olivier
  */
-public class Text extends Run {
+public class Text extends Fichiers {
 
     public Text(String path) {
         super(path);
     }
 
-    private void ReadText() throws FileNotFoundException, IOException {
+    public void Read() throws FileNotFoundException, IOException {
 
         BufferedReader file = new BufferedReader(new FileReader(path));
         String line = new String();
@@ -65,7 +65,7 @@ public class Text extends Run {
 
     }
 
-    public void Rewrite() {
+    public void Encod() {
 
         for (int j = 0; j < list.size(); j++) {
 

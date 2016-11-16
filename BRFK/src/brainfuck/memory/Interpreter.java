@@ -36,7 +36,7 @@ public class Interpreter {
 
             if (args[i].equals("--rewrite")) {
 
-                new Text(path).Rewrite();
+                new Text(path).Encod();
 
                 return;                
             }
@@ -57,7 +57,7 @@ public class Interpreter {
 
             if (args[i].equals("--translate")) {
 
-                run.EncodImage();
+                //run.EncodImage();
 
             }
 

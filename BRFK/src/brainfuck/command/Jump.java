@@ -1,6 +1,6 @@
 package brainfuck.command;
 
-import brainfuck.lecture.Run;
+import brainfuck.lecture.Fichiers;
 
 /**
  * @author TeamTaskbar
@@ -10,11 +10,11 @@ public class Jump implements Command {
     @Override
     public void execute() {
 
-        Run run = new Run("");
+        Fichiers temp = new Fichiers("");
 
-        if (run.getCm().getCurrentCaseValue() == 0) {
+        if (temp.getCm().getCurrentCaseValue() == 0) {
 
-            run.getCm().setI(run.jumpAssoc(run.getCm().getI()));
+            temp.getCm().setI(temp.jumpAssoc(temp.getCm().getI()));
 
         }
 
