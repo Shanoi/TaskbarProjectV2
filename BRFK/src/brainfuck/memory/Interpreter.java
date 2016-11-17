@@ -1,11 +1,8 @@
 package brainfuck.memory;
 
-import brainfuck.command.EnumCommands;
 import brainfuck.lecture.Run;
 import brainfuck.lecture.Text;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class Interpreter {
 

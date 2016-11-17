@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Math.ceil;
+import static java.lang.Math.sqrt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -25,16 +27,18 @@ public class Image extends Fichiers {
     private final int pixelSize = 3;
 
     public Image(String path) {
+
         super(path);
+
     }
 
     private BufferedImage createImg(int dim) {
 
         final BufferedImage res = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
 
-        for (int i = 0; i < dim; i += 3) {
+        for (int i = 0; i < dim; i += pixelSize) {
 
-            for (int j = 0; j < dim; j += 3) {
+            for (int j = 0; j < dim; j += pixelSize) {
 
                 for (int k = i, cpt1 = 0; cpt1 < pixelSize; k++, cpt1++) {
 
@@ -73,43 +77,43 @@ public class Image extends Fichiers {
 
         try {
             BufferedImage img = null;
-            
+
             img = ImageIO.read(new File(path));
-            
-            if (img.getHeight() % 3 == 0 && img.getWidth() % 3 == 0) {
-                
-                for (int o = 0; o < img.getHeight(); o += 3) {
-                    
-                    for (int j = 0; j < img.getWidth(); j += 3) {
-                        
+
+            if (img.getHeight() % pixelSize == 0 && img.getWidth() % pixelSize == 0) {
+
+                for (int o = 0; o < img.getHeight(); o += pixelSize) {
+
+                    for (int j = 0; j < img.getWidth(); j += pixelSize) {
+
                         Color pixelcolorBase = new Color(img.getRGB(j, o));
-                        
-                        for (int k = o, cpt1 = 0; cpt1 < 3; k++, cpt1++) {
-                            
-                            for (int l = j, cpt2 = 0; cpt2 < 3; l++, cpt2++) {
-                                
+
+                        for (int k = o, cpt1 = 0; cpt1 < pixelSize; k++, cpt1++) {
+
+                            for (int l = j, cpt2 = 0; cpt2 < pixelSize; l++, cpt2++) {
+
                                 Color pixelcolor = new Color(img.getRGB(l, k));
-                                
+
                                 if (!pixelcolor.equals(pixelcolorBase)) {
-                                    
+
                                     System.exit(9);
-                                    
+
                                 }
-                                
+
                             }
 
                         }
 
                         if (isCommand(Integer.toString(pixelcolorBase.getRGB())) && pixelcolorBase != Color.BLACK) {
-                            
+
                             list.add(toCommand(Integer.toString(pixelcolorBase.getRGB())));
-                            
+
                         } else {
-                            
+
                             System.exit(4);
-                            
+
                         }
-                        
+
                     }
 
                 }
@@ -123,8 +127,10 @@ public class Image extends Fichiers {
     @Override
     public void Encod() {
 
+        int dim = pixelSize * (int) ceil(sqrt(getNbI()));
+        
         try {
-            saveImg(createImg(5), "lol");
+            saveImg(createImg(dim), path + ".bmp");
         } catch (IOException ex) {
             Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
         }

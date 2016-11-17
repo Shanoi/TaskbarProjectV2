@@ -7,7 +7,6 @@ public class ComputationalModel {
 
     private final int memorySize = 30000;
 
-// private static uByte[] memory = new uByte[30000];
     private static int p = 0;
     private static int i = 0;
 
@@ -22,9 +21,6 @@ public class ComputationalModel {
      * each cell
      */
     public void init() {
-        /* for (int j = 0; j < 30000; j++) {
-         memory[j] = new uByte();
-         }*/
 
         _memory = new ArrayList<>();
 
@@ -37,8 +33,9 @@ public class ComputationalModel {
     }
 
     public int getCurrentCaseValue() {
-        //return (memory[p]).byteToInt();
+
         return _memory.get(p).byteToInt();
+
     }
 
     /**
@@ -47,7 +44,6 @@ public class ComputationalModel {
      * @param n the value of the cell pointed
      */
     public void setCurrentCaseValue(byte n) {
-        //(memory[p]).set(n);
 
         _memory.get(p).set(n);
 
@@ -85,10 +81,7 @@ public class ComputationalModel {
      * Display the memory in row
      */
     public void affichememoire() {
-        /*for (int j = 0; j < 30000; j++) {
-         System.out.print(" | " + memory[j].byteToInt());
-         }*/
-
+     
         _memory.stream().forEach((_memory1) -> {
             System.out.print(" | " + _memory1.byteToInt());
         });
