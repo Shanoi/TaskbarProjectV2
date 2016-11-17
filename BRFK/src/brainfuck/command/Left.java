@@ -1,5 +1,6 @@
 package brainfuck.command;
 
+import brainfuck.lecture.Fichiers;
 import brainfuck.memory.ComputationalModel;
 
 /**
@@ -15,9 +16,9 @@ public class Left implements Command {
      */
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
-        if (cm.getCurrentIndice() > 0) {
-            cm.setCurrentIndice(cm.getCurrentIndice() - 1);
+       Fichiers tempfile = new Fichiers("");
+        if (tempfile.getCm().getCurrentIndice() > 0) {
+            tempfile.getCm().setCurrentIndice(tempfile.getCm().getCurrentIndice() - 1);
         } else {
             System.exit(2);
         }

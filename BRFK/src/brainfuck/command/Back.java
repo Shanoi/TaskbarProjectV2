@@ -12,13 +12,13 @@ public class Back implements Command {
 
     @Override
     public void execute() {
-        
-        Fichiers temp = new Fichiers("");
-        
-        if (temp.getCm().getCurrentCaseValue() > 0) {
-            
-            temp.getCm().setI(temp.backAssoc(temp.getCm().getI()));
-            
+
+        Fichiers tempfile = new Fichiers("");
+
+        if (tempfile.getCm().getCurrentCaseValue() > 0) {
+
+            tempfile.getCm().setI(tempfile.backAssoc(tempfile.getCm().getI()));
+
         }
 
     }

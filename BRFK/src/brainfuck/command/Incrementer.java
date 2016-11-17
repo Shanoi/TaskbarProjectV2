@@ -1,5 +1,6 @@
 package brainfuck.command;
 
+import brainfuck.lecture.Fichiers;
 import brainfuck.memory.ComputationalModel;
 
 /**
@@ -14,9 +15,9 @@ public class Incrementer implements Command {
      */
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
-        if (cm.getCurrentCaseValue() < 255) {
-            cm.setCurrentCaseValue((byte) (cm.getCurrentCaseValue() + 1));
+        Fichiers tempfile = new Fichiers("");
+        if (tempfile.getCm().getCurrentCaseValue() < 255) {
+            tempfile.getCm().setCurrentCaseValue((byte) (tempfile.getCm().getCurrentCaseValue() + 1));
         } else {
             System.exit(1);
         }

@@ -1,5 +1,6 @@
 package brainfuck.command;
 
+import brainfuck.lecture.Fichiers;
 import brainfuck.memory.ComputationalModel;
 import brainfuck.memory.Interpreter;
 
@@ -11,9 +12,9 @@ public class Out implements Command {
 
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
+        Fichiers tempfile = new Fichiers("");
         if(file.equals("")){
-            System.out.println((char) cm.getCurrentCaseValue());
+            System.out.println((char) tempfile.getCm().getCurrentCaseValue());
         }
         else{
             file= Interpreter.getFileOut();
@@ -24,7 +25,7 @@ public class Out implements Command {
                 while(temp!=-1){
                     tempString+=(char)temp;
                 }
-                tempString+=(char)cm.getCurrentCaseValue();
+                tempString+=(char)tempfile.getCm().getCurrentCaseValue();
                 inputFile.write(tempString);
                 inputFile.close();
                 tampon.close();

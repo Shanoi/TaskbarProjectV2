@@ -1,5 +1,6 @@
 package brainfuck.command;
 
+import brainfuck.lecture.Fichiers;
 import brainfuck.memory.ComputationalModel;
 
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ public class InText implements Command {
 
     @Override
     public void execute() {
-        ComputationalModel cm = new ComputationalModel();
+        Fichiers tempfile = new Fichiers("");
         File inputFile = new File(file);
         FileReader in = null;
         try {
@@ -33,7 +34,7 @@ public class InText implements Command {
                 temp = in.read();
             }
             if (temp != -1) {
-                cm.setCurrentCaseValue((byte) (char) temp);
+                tempfile.getCm().setCurrentCaseValue((byte) (char) temp);
                 cnt++;
             } else {
                 System.exit(3);

@@ -10,11 +10,11 @@ public class Jump implements Command {
     @Override
     public void execute() {
 
-        Fichiers temp = new Fichiers("");
+        Fichiers tempfile = new Fichiers("");
 
-        if (temp.getCm().getCurrentCaseValue() == 0) {
+        if (tempfile.getCm().getCurrentCaseValue() == 0) {
 
-            temp.getCm().setI(temp.jumpAssoc(temp.getCm().getI()));
+            tempfile.getCm().setI(tempfile.jumpAssoc(tempfile.getCm().getI()));
 
         }
 
