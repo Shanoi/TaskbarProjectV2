@@ -1,6 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
+import brainfuck.lecture.Run;
 import brainfuck.memory.ComputationalModel;
 
 import java.io.BufferedReader;
@@ -24,9 +25,14 @@ public class InText implements Command {
 
     @Override
     public void execute() {
+        
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_WRITE();
+        
         Fichiers tempfile = new Fichiers("");
         File inputFile = new File(file);
         FileReader in = null;
+        
         try {
             in = new FileReader(inputFile);
 

@@ -1,7 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
-import brainfuck.memory.ComputationalModel;
+import brainfuck.lecture.Run;
 
 /**
  *
@@ -16,11 +16,20 @@ public class Right implements Command {
      */
     @Override
     public void execute() {
+       
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_MOVE();
+        
         Fichiers tempfile = new Fichiers("");
+        
         if (tempfile.getCm().getCurrentIndice() < tempfile.getCm().getMemorySize()) {
+            
             tempfile.getCm().setCurrentIndice(tempfile.getCm().getCurrentIndice() + 1);
+            
         } else {
+            
             System.exit(2);
+            
         }
     }
 

@@ -1,6 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
+import brainfuck.lecture.Run;
 import brainfuck.memory.ComputationalModel;
 
 /**
@@ -16,6 +17,10 @@ public class Incrementer implements Command {
     @Override
     public void execute() {
         Fichiers tempfile = new Fichiers("");
+        
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_WRITE();
+        
         if (tempfile.getCm().getCurrentCaseValue() < 255) {
             tempfile.getCm().setCurrentCaseValue((byte) (tempfile.getCm().getCurrentCaseValue() + 1));
         } else {

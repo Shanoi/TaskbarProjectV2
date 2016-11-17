@@ -6,6 +6,12 @@ import java.io.IOException;
 
 public class Run {
 
+    private static long EXEC_TIME = 0;
+    private static int EXEC_MOVE = 0;
+    private static int DATA_MOVE = 0;
+    private static int DATA_WRITE = 0;
+    private static int DATA_READ = 0;
+
     protected final String path;
 
     private final ComputationalModel cm;
@@ -24,6 +30,22 @@ public class Run {
 
     public ComputationalModel getCm() {
         return cm;
+    }
+
+    public static void IncrEXEC_MOVE() {
+        Run.EXEC_MOVE++;
+    }
+
+    public static void IncrDATA_MOVE() {
+        Run.DATA_MOVE++;
+    }
+
+    public static void IncrDATA_WRITE() {
+        Run.DATA_WRITE++;
+    }
+
+    public static void IncrDATA_READ() {
+        Run.DATA_READ++;
     }
 
     public void load() throws IOException, FileNotFoundException {
@@ -55,6 +77,8 @@ public class Run {
 
     public void execute() throws IOException, FileNotFoundException {
 
+        long instantA = System.currentTimeMillis();
+        
         cm.init();
 
         while (cm.getI() < Fichiers.list.size()) {
@@ -65,6 +89,21 @@ public class Run {
             cm.setI(i);
         }
 
+        long instantB = System.currentTimeMillis();
+	EXEC_TIME = instantB - instantA;
+		afficheStats();
+        
+    }
+
+    public void afficheStats() {
+        
+        System.out.println("Nombre d'instructions: " + fichier.getNbI());
+        System.out.println("Temps d'executions: " + EXEC_TIME);
+        System.out.println("Nombre de déplacements du pointeur d'instruction: " + EXEC_MOVE);
+        System.out.println("Nombre de déplacements dans la mémoire: " + DATA_MOVE);
+        System.out.println("Nombre d'écritures dans la mémoire: " + DATA_WRITE);
+        System.out.println("Nombre de lectures dans la mémoire: " + DATA_READ);
+        
     }
 
 }

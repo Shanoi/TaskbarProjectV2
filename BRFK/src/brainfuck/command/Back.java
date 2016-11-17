@@ -1,6 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
+import brainfuck.lecture.Run;
 
 /**
  *
@@ -14,6 +15,9 @@ public class Back implements Command {
     public void execute() {
 
         Fichiers tempfile = new Fichiers("");
+
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_READ();
 
         if (tempfile.getCm().getCurrentCaseValue() > 0) {
 

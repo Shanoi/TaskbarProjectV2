@@ -1,6 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
+import brainfuck.lecture.Run;
 import brainfuck.memory.ComputationalModel;
 import brainfuck.memory.Interpreter;
 
@@ -27,6 +28,10 @@ public class In implements Command {
 
     @Override
     public void execute() {
+        
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_WRITE();
+        
         file = Interpreter.getFileIn();
         if (file.equals("")) {
             Fichiers tempfile = new Fichiers("");

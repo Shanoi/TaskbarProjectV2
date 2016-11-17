@@ -1,6 +1,7 @@
 package brainfuck.command;
 
 import brainfuck.lecture.Fichiers;
+import brainfuck.lecture.Run;
 import brainfuck.memory.ComputationalModel;
 
 /**
@@ -18,6 +19,9 @@ public class Decrementer implements Command {
         
         Fichiers tempfile = new Fichiers("");
             
+        Run.IncrEXEC_MOVE();
+        Run.IncrDATA_WRITE();
+        
         if (tempfile.getCm().getCurrentCaseValue() > 0) {
             tempfile.getCm().setCurrentCaseValue((byte) (tempfile.getCm().getCurrentCaseValue() - 1));
         } else {
