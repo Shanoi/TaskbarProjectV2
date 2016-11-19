@@ -36,6 +36,8 @@ public class Image extends Fichiers {
 
         final BufferedImage res = new BufferedImage(dim, dim, BufferedImage.TYPE_INT_RGB);
 
+        int numInstr = 0;
+
         for (int i = 0; i < dim; i += pixelSize) {
 
             for (int j = 0; j < dim; j += pixelSize) {
@@ -44,18 +46,20 @@ public class Image extends Fichiers {
 
                     for (int l = j, cpt2 = 0; cpt2 < pixelSize; l++, cpt2++) {
 
-                        if (i + j > getNbI()) {
-
-                            res.setRGB(k, l, Color.decode(getInstructions().get(i + j).getColor()).getRGB());
+                        if (numInstr < getNbI()) {
+                            
+                            res.setRGB(l, k, Color.decode(getInstructions().get(numInstr).getColor()).getRGB());
 
                         } else {
 
-                            res.setRGB(k, l, Color.decode("#000000").getRGB());
+                            res.setRGB(l, k, Color.decode("#000000").getRGB());
 
                         }
 
                     }
                 }
+
+                numInstr++;
 
             }
 
@@ -128,7 +132,9 @@ public class Image extends Fichiers {
     public void Encod() {
 
         int dim = pixelSize * (int) ceil(sqrt(getNbI()));
-        
+
+        System.out.println("DIM --- " + getNbI());
+
         try {
             saveImg(createImg(dim), path + ".bmp");
         } catch (IOException ex) {
